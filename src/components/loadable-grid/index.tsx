@@ -23,8 +23,8 @@ const LoadableGrid: React.FunctionComponent<LoadableGridProps> = ({
   return (
     <>
       <VirtuosoGrid
-        style={{ height: "400px" }}
-        totalCount={count}
+        style={{ height: "800px", margin: 0, padding: 0 }}
+        totalCount={20}
         // overscan={Math.floor(count * 0.1)}
         itemContent={ItemContent}
         components={{
@@ -32,11 +32,11 @@ const LoadableGrid: React.FunctionComponent<LoadableGridProps> = ({
           Item: CustomItem,
           ScrollSeekPlaceholder,
         }}
-        // scrollSeekConfiguration={{
-        //   enter: (velocity) => Math.abs(velocity) > 200,
-        //   exit: (velocity) => Math.abs(velocity) < 30,
-        //   change: (_, range) => console.log({ range }),
-        // }}
+        scrollSeekConfiguration={{
+          enter: (velocity) => Math.abs(velocity) > 200,
+          exit: (velocity) => Math.abs(velocity) < 30,
+          change: (_, range) => console.log({ range }),
+        }}
       />
     </>
   );

@@ -12,6 +12,7 @@ type PokemonTileProps = {
 
 function PokemonTile({ name, url, number }: PokemonTileProps) {
   const classes = useStyles();
+  // return <h1>{name || "???"}</h1>;
   return (
     <Paper className={classes.pokemonPaper}>
       {/* TODO: now update link and add image call */}

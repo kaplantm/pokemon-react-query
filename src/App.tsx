@@ -17,43 +17,43 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <CssBaseline>
-      <QueryClientProvider client={queryClient}>
-        <div className="App">
-          <Router>
-            <header className="App-header">
-              <Typography variant="h1">PokéGuesser</Typography>
-              <nav>
-                <ul>
-                  <li>
-                    <Link component={RouterLink} to="/">
-                      <Typography variant="h4">Home</Typography>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link component={RouterLink} to="/play">
-                      <Typography variant="h4">Play</Typography>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </header>
+    // <CssBaseline>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Router>
+          <header className="App-header">
+            <Typography variant="h1">PokéGuesser</Typography>
+            <nav>
+              <ul>
+                <li>
+                  <Link component={RouterLink} to="/">
+                    <Typography variant="h4">Home</Typography>
+                  </Link>
+                </li>
+                <li>
+                  <Link component={RouterLink} to="/play">
+                    <Typography variant="h4">Play</Typography>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </header>
 
-            {/* A <Switch> looks through its children <Route>s and
+          {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-            <Switch>
-              <Route path="/play">
-                <PlayPage />
-              </Route>
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
-          </Router>
-        </div>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </CssBaseline>
+          <Switch>
+            <Route path="/play">
+              <PlayPage />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+    // </CssBaseline>
   );
 }
 

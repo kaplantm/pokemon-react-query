@@ -3,12 +3,13 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     customItem: {
-      margin: 0,
-      height: "200px",
-      border: "1px solid red",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "stretch",
+      // height: "220px",
+      // border: "1px solid red",
+      // margin: 0,
+      // padding: 0,
+      // display: "flex",
+      // flexDirection: "column",
+      // alignItems: "stretch",
       // width: "25%",
 
       // [theme.breakpoints.down("sm")]: {

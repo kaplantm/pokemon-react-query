@@ -29,3 +29,8 @@ nav ul li {
   padding-right: 2rem;
   padding-left: 2rem;
 }
+
+div {
+  padding: 0 !important;
+  margin: 0 !important;
+}
