@@ -2,13 +2,11 @@ import React, { useMemo } from "react";
 import { useQuery } from "react-query";
 import { CircularProgress } from "@material-ui/core";
 import { GridItemContent, VirtuosoGrid } from "react-virtuoso";
-import { getAllPokemon } from "../api/pokemon";
-import { reactQueryDefaults } from "../lib/constants/react-query";
-import PokemonTile from "../../components/pokemon-tile";
+import PokemonTile from "../../../components/pokemon-tile";
 import useStyles from "./use-styles";
-import LoadableGrid from "../../components/loadable-grid";
-import CustomItem from "../../components/loadable-grid/custom-item";
-import CustomList from "../../components/loadable-grid/custom-list";
+import LoadableGrid from "../../../components/loadable-grid";
+import CustomItem from "../../../components/loadable-grid/custom-item";
+import CustomList from "../../../components/loadable-grid/custom-list";
 
 const data = {
   count: 1118,
@@ -39,7 +37,7 @@ const data = {
 };
 
 // TODO: now scss?
-function HomePage() {
+function PokemonPage() {
   const classes = useStyles();
   // // TODO: now enter name and play
   // // TODO: now context
@@ -50,18 +48,12 @@ function HomePage() {
   // );
   // console.log({ isFetched, data, isSuccess });
 
-  const Item = useMemo(() => {
-    return ((index: number) => {
-      const pokemonData = data?.results[index];
-      return (
-        <PokemonTile
-          name={pokemonData?.name}
-          url={pokemonData?.url}
-          number={index + 1}
-        />
-      );
-    }) as GridItemContent;
-  }, [data]);
+  // const Item = useMemo(() => {
+  //   return ((index: number) => {
+  //     const pokemonData = data?.results[index];
+  //     return <PokemonTile name={pokemonData?.name} url={pokemonData?.url} number={index + 1} />;
+  //   }) as GridItemContent;
+  // }, [data]);
 
   // if (!isFetched) {
   //   return <CircularProgress />;
@@ -90,8 +82,8 @@ function HomePage() {
   // return <LoadableGrid count={data.results.length} />;
   return (
     <>
-      <h1>Home</h1>
-      <LoadableGrid count={data.results.length} ItemContent={Item} />
+      <h1>ID</h1>
+      {/* <LoadableGrid count={data.results.length} ItemContent={Item} /> */}
       {/* {data?.results?.length ? (
         <LoadableGrid count={data.results.length} ItemContent={Item} />
       ) : (
@@ -101,4 +93,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default PokemonPage;

@@ -10,6 +10,12 @@ export type AllPokemonSearchResults = {
   results: AllPokemonSearchResult[];
 };
 
+export type Paginated<T> = T[] & {
+  count: number;
+  next: string | null;
+  previous: string | null;
+};
+
 export type PokemonType = {
   slot: number;
   type: {
