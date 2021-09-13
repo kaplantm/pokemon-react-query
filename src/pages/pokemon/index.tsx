@@ -1,7 +1,17 @@
 import React, { useMemo } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
-import { CircularProgress } from "@material-ui/core";
-import { GridItemContent, VirtuosoGrid } from "react-virtuoso";
+import {
+  Avatar,
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  ListSubheader,
+  Box,
+  Typography,
+} from "@material-ui/core";
+import { GridItemContent, GroupedVirtuoso, VirtuosoGrid } from "react-virtuoso";
 import PokemonTile from "../../components/pokemon-tile";
 import useStyles from "./use-styles";
 import LoadableGrid from "../../components/loadable-grid";
@@ -10,6 +20,12 @@ import CustomList from "../../components/loadable-grid/custom-list";
 import { allPokemonEndpoint, getPokemonEndpoint } from "../../api-client/endpoints";
 import { Paginated, PokemonType } from "../../api-client/types";
 import { AxiosResponse } from "axios";
+
+const ListContainer: React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>> = React.forwardRef<HTMLDivElement>(
+  (props, ref) => <Box border="1px solid grey" p={3} />
+);
+const ItemContainer: React.FunctionComponent = () => <Box border="1px solid red" p={1} />;
+const Item: React.FunctionComponent = () => <Box>hello</Box>;
 
 const data = {
   count: 1118,
@@ -44,54 +60,38 @@ function HomePage() {
   const classes = useStyles();
   // // TODO: now enter name and play
   // // TODO: now context
-  const { isFetched, data, isSuccess } = useInfiniteQuery<AxiosResponse<Paginated<PokemonType>>>(allPokemonEndpoint, {
-    getNextPageParam: (lastPage) => lastPage?.data?.next,
-    getPreviousPageParam: (firstPage) => firstPage?.data?.previous,
+  const { isFetched, data, isSuccess } = useInfiniteQuery<Paginated<PokemonType>>(allPokemonEndpoint, {
+    getNextPageParam: (lastPage) => lastPage?.next,
+    getPreviousPageParam: (firstPage) => firstPage?.previous,
   });
-  // console.log({ isFetched, data, isSuccess });
-
-  // const Item = useMemo(() => {
-  //   return ((index: number) => {
-  //     const pokemonData = data?.results[index];
-  //     return <PokemonTile name={pokemonData?.name} url={pokemonData?.url} number={index + 1} />;
-  //   }) as GridItemContent;
-  // }, [data]);
+  console.log({ isFetched, data, isSuccess, zero: data?.pages[0].count });
 
   if (!isFetched) {
-    return <CircularProgress />;
+    return <CircularProgress size={50} />;
   }
 
-  // return (
-  //   <VirtuosoGrid
-  //     style={{ height: "300px" }}
-  //     totalCount={data.results.length}
-  //     overscan={24}
-  //     itemContent={(i: number) =>
-  //       data.results[i] ? (
-  //         <div>
-  //           #{i} {data.results[i].name}
-  //         </div>
-  //       ) : (
-  //         <div></div>
-  //       )
-  //     }
-  //     components={{
-  //       Item: CustomItem,
-  //       List: CustomList,
-  //     }}
-  //   />
-  // );
-  // return <LoadableGrid count={data.results.length} />;
-  console.log({ data });
+  if (!data?.pages?.length) {
+    return <Typography>Oof.</Typography>;
+  }
+
   return (
     <>
-      <h1>Home</h1>
-      {/* <LoadableGrid count={data.results.length} ItemContent={Item} /> */}
-      {/* {data?.results?.length ? (
-        <LoadableGrid count={data.results.length} ItemContent={Item} />
-      ) : (
-        <h1>loading</h1>
-      )} */}
+      <VirtuosoGrid
+        style={{ height: 300 }}
+        totalCount={100}
+        overscan={10}
+        components={{
+          Item: Item,
+          List: ListContainer,
+          ScrollSeekPlaceholder: ({ height, index }: any) => <ItemContainer>{"--"}</ItemContainer>,
+        }}
+        itemContent={(index) => <Box>Item {index}</Box>}
+        scrollSeekConfiguration={{
+          enter: (velocity) => Math.abs(velocity) > 200,
+          exit: (velocity) => Math.abs(velocity) < 30,
+          change: (_, range) => console.log({ range }),
+        }}
+      />
     </>
   );
 }

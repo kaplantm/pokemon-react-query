@@ -1,3 +1,4 @@
+import { Box, Container } from "@material-ui/core";
 import { QueryClientProvider } from "react-query";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomePage from "./pages/pokemon";
@@ -7,34 +8,27 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <div>
+        <Box p={1}>
           <nav>
-            <ul>
-              <li>
-                <Link to="/" title="Home">
-                  <img src="./pokemon.png" alt="Pokemon" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
+            <Link to="/" title="Home">
+              <img src="./images/pokemon.png" alt="Pokemon" height="50" />
+            </Link>
           </nav>
-
-          {/* A <Switch> looks through its children <Route>s and
+        </Box>
+        <Container>
+          <Box mt={3} mb={3}>
+            {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-          <Switch>
-            <Route path="/pokemon">
-              <HomePage />
-            </Route>
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
-        </div>
+            <Switch>
+              <Route path="/pokemon">
+                <HomePage />
+              </Route>
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Box>
+        </Container>
       </Router>
     </QueryClientProvider>
   );
