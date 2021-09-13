@@ -1,14 +1,18 @@
-.App {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  color: white;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
 }
 
-.App-header {
-  text-align: center;
+#root {
+  font-family: Arial;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 ul {
@@ -28,9 +32,4 @@ nav ul {
 nav ul li {
   padding-right: 2rem;
   padding-left: 2rem;
-}
-
-div {
-  padding: 0 !important;
-  margin: 0 !important;
 }

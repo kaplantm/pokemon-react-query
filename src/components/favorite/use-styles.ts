@@ -1,11 +1,10 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  listContainer: {
-    flex: 1,
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
+  favorite: {
+    fontSize: "4rem",
+    margin: theme.spacing(2),
+    color: "tomato",
   },
 }));
 
