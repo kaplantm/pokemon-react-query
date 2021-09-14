@@ -29,7 +29,6 @@ function FavoritePokemonComponent({ id }: PokemonStatsProps) {
         {isFavorited ? <Favorite color="inherit" fontSize="inherit" /> : <FavoriteBorder color="inherit" fontSize="inherit" />}
       </IconButton>
       {error && <Typography color="error">oof ({status})</Typography>}
-      {isLoading && "foo"}
     </div>
   );
 }
