@@ -9,7 +9,7 @@ import { QueryClient } from "react-query";
 // Setup default fetcher as custom fetch to expect URL as first element and query params as second
 // When we need to deviate from this approach (e.g. for other types of requests), use a custom fetcher
 export const defaultQueryFn = async ({ queryKey }: { queryKey: readonly unknown[] }) =>
-  axios.get(queryKey[0] as string, { params: queryKey[1] });
+  await axios.get(queryKey[0] as string, { params: queryKey[1] });
 
 // provide the default query function to your app with defaultOptions
 const queryClient = new QueryClient({

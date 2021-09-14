@@ -1,4 +1,5 @@
 import { CircularProgress, Grid } from "@material-ui/core";
+import { AxiosResponse } from "axios";
 import { useQuery } from "react-query";
 import { useParams, useLocation } from "react-router-dom";
 import { getPokemonEndpoint } from "../../../api-client/endpoints";
@@ -13,12 +14,12 @@ function PokemonPage() {
   const { state }: { state: { name: string; id: string } } = useLocation();
   const { pokemonId } = params;
 
-  const { isFetched, data } = useQuery<PokemonFull>(getPokemonEndpoint(pokemonId), {
+  const { isFetched, data } = useQuery<AxiosResponse<PokemonFull>>(getPokemonEndpoint(pokemonId), {
     enabled: !!pokemonId,
   });
 
-  const name = data?.name || state?.name;
-  const id = data?.id || state?.id;
+  const name = data?.data?.name || state?.name;
+  const id = data?.data?.id || state?.id;
 
   return (
     <PageContainer>
@@ -28,7 +29,7 @@ function PokemonPage() {
           {id && <FavoritePokemon id={id} />}
         </Grid>
         <Grid item xs={8}>
-          {isFetched ? data?.stats && <PokemonStats stats={data.stats} /> : <CircularProgress size={25} />}
+          {isFetched ? data?.data?.stats && <PokemonStats stats={data.data.stats} /> : <CircularProgress size={25} />}
         </Grid>
       </Grid>
     </PageContainer>

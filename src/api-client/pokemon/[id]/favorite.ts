@@ -1,25 +1,26 @@
-import axios from "axios";
-import { useMutation, useQueryClient } from "react-query";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export const usePostFavoritePokemon = (endpoint: string) => {
   const queryClient = useQueryClient();
 
-  // would need this if your endpoint requires a refetch to get the updated data after success
+  // would need refetch  if your endpoint requires a refetch to get the updated data after success
   // its fine that its on a page twice, thats the magic of react-query - it deduplicates requests by key
-  //   const { refetch } = useQuery<AxiosResponse<{ isFavorited: boolean }>>(endpoint);
+  const { refetch, data } = useQuery<AxiosResponse<{ isFavorited: boolean }>>(endpoint);
+  const isFavorited = !!data?.data?.isFavorited; // will always be falsy since this endpoint is fake
 
-  return useMutation<boolean, string, { isFavorited: boolean }>((isFavorited) => axios.post(endpoint, { isFavorited }), {
+  return useMutation<boolean, AxiosError, { isFavorited: boolean }>((isFavorited) => axios.post(endpoint, { isFavorited }), {
     onMutate: (data) => {
       // A mutation is about to happen
       // optimistically update the query locally with the expected response
       queryClient.setQueryData(endpoint, { data });
       // Optionally return a context containing data to use when for example rolling back
-      return { data };
+      return { isFavorited };
     },
     onError: (error, variables, context: any) => {
       // An error happened
       // rolling back optimistic update
-      queryClient.setQueryData(endpoint, { data: context });
+      queryClient.setQueryData(endpoint, context);
     },
     onSuccess: (data, variables, context) => {
       // didn't actually test this since the endpoint never succeeds
